@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportswear Quality Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .download-section {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+        }
+
+        .download-btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .download-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .quality-section {
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .low-quality {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border: 3px solid #ff6b6b;
+        }
+
+        .high-quality {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border: 3px solid #00d2ff;
+        }
+
+        .quality-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .quality-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+
+        .low-quality .quality-icon {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .high-quality .quality-icon {
+            background: #00d2ff;
+            color: white;
+        }
+
+        .quality-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .low-quality .feature-item {
+            border-left-color: #ff6b6b;
+        }
+
+        .high-quality .feature-item {
+            border-left-color: #00d2ff;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .feature-desc {
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .craftsmanship-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .craftsmanship-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .craftsmanship-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .craftsmanship-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .craftsmanship-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .craftsmanship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .craft-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .craft-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .craft-icon {
+            font-size: 2.5em;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .craft-content {
+            flex: 1;
+        }
+
+        .craft-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .craft-desc {
+            line-height: 1.5;
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        .craftsmanship-conclusion {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .conclusion-icon {
+            font-size: 3em;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            flex-shrink: 0;
+        }
+
+        .conclusion-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .conclusion-text strong {
+            color: #ffd700;
+        }
+
+        .cost-analysis {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            border: 3px solid #ff8a80;
+        }
+
+        .cost-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .cost-comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cost-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 200px;
+        }
+
+        .cost-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .cost-value {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .low-cost {
+            color: #ff6b6b;
+        }
+
+        .high-cost {
+            color: #00d2ff;
+        }
+
+        .sportswear-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .sportswear-category {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .sportswear-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .sportswear-category.premium {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4a 100%);
+            border: 2px solid #ff8a00;
+        }
+
+        .sportswear-category.fitness {
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            color: white;
+        }
+
+        .category-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .category-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .sportswear-category.fitness .category-title {
+            color: white;
+        }
+
+        .category-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tech-link {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .tech-link:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .sportswear-category.premium .tech-link {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border-color: rgba(255, 138, 0, 0.5);
+            font-weight: bold;
+        }
+
+        .sportswear-category.premium .tech-link:hover {
+            background: #ff8a00;
+            color: white;
+            font-weight: bold;
+        }
+
+        .sportswear-category.fitness .tech-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        .sportswear-category.fitness .tech-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .cost-comparison {
+                flex-direction: column;
+            }
+            
+            .craftsmanship-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .craftsmanship-conclusion {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .craft-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .sportswear-icons {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .tech-link {
+                font-size: 0.8em;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="download-section">
+                <button class="download-btn" onclick="downloadPDF()">
+                    📄 Download PDF Report
+                </button>
+            </div>
+            <h1>Sportswear Quality Comparison</h1>
+            <p>Low-Quality vs. High-Quality: The True Cost of Your Athletic Wear</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sportswear-icons">
+                <div class="sportswear-category">
+                    <div class="category-icon">👕</div>
+                    <div class="category-title">High Performance T-Shirt Technology</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/custom-t-shirt-manufacturer" class="tech-link" target="_blank">Custom Manufacturing</a>
+                        <a href="https://www.conbello.com/Custom-Sportswear-T-shirt-Manufacturer-Turkey" class="tech-link" target="_blank">Sportswear Engineering</a>
+                        <a href="https://www.conbello.com/Best-t-shirt-manufacturer-Turkey" class="tech-link" target="_blank">Premium Production</a>
+                    </div>
+                </div>
+                
+                <div class="sportswear-category">
+                    <div class="category-icon">🧘‍♀️</div>
+                    <div class="category-title">What does high quality mean in leggings?</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/custom-wholesale-leggings-manufacturer" class="tech-link" target="_blank">Premium leggings manufacturing architecture</a>
+                        <a href="https://www.conbello.com/High-Quality-Custom-Yoga-Clothes-Manufacturer" class="tech-link" target="_blank">Yoga Apparel Systems</a>
+                    </div>
+                </div>
+                
+                <div class="sportswear-category">
+                    <div class="category-icon">👙</div>
+                    <div class="category-title">Fabric and branding technology in sports bra and gym apparel</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/Turkeycustommanufacturingpolyestersportsbra" class="tech-link" target="_blank">Selection of fabric and fabric subtypes according to desired design features in fitness apparel</a>
+                    </div>
+                </div>
+                
+                <div class="sportswear-category">
+                    <div class="category-icon">👘</div>
+                    <div class="category-title">The importance of hoodie quality</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/custom-made-streetwear-turkey" class="tech-link" target="_blank">Streetwear Manufacturing</a>
+                        <a href="https://www.conbello.com/Custom-Hoodie-manufacturer-Turkey" class="tech-link" target="_blank">Custom Hoodie Systems</a>
+                        <a href="https://www.conbello.com/Hoodie-Jogger-Tracksuits-wholesale-manufacturer-Turkey" class="tech-link" target="_blank">Tracksuit Engineering</a>
+                    </div>
+                </div>
+                
+                <div class="sportswear-category premium">
+                    <div class="category-icon">🏆</div>
+                    <div class="category-title">Premium Sportswear</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/How-to-Start-a-Fitness-Clothing-Line" class="tech-link" target="_blank">Brand Development</a>
+                        <a href="https://www.conbello.com/Women-fitness-clothing-manufacturer" class="tech-link" target="_blank">Conbello Textile's use of advanced technology in women's fitness apparel</a>
+                        <a href="https://www.conbello.com/sportswear-manufacturer" class="tech-link" target="_blank">Sportswear Manufacturing</a>
+                        <a href="https://www.conbello.com/TurkeySportswearManufacturing" class="tech-link" target="_blank">Startup brand support program</a>
+                        <a href="https://www.conbello.com/CustomManufacturerSportswear" class="tech-link" target="_blank">Custom Solutions</a>
+                    </div>
+                </div>
+                
+                <div class="sportswear-category fitness">
+                    <div class="category-icon">💪</div>
+                    <div class="category-title">Fitness Clothing</div>
+                    <div class="category-links">
+                        <a href="https://www.conbello.com/Private-Label-Fitness-Clothing-Manufacturer" class="tech-link" target="_blank">Private Label Systems</a>
+                        <a href="https://www.conbello.com/Clothing-manufacturers-for-small-business" class="tech-link" target="_blank">Small Business Solutions</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="quality-section low-quality">
+                    <div class="quality-header">
+                        <div class="quality-icon">❌</div>
+                        <div class="quality-title">Low-Quality Sportswear</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🔄 Recycled Fabrics</div>
+                        <div class="feature-desc">Quickly lose shape and stretch, becoming unwearable after few washes</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🎨 Chromatic Degradation</div>
+                        <div class="feature-desc">Absence of color-fastening and color-fastness finishes results in rapid chromatic deterioration and pigment migration</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🏷️ Peeling Logos</div>
+                        <div class="feature-desc">Prints and logos crack, peel, and wear off after minimal use</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">✂️ Substandard Seam Construction</div>
+                        <div class="feature-desc">Negligent stitching techniques and improperly executed seam applications cause immediate structural inconsistencies and accelerated garment disintegration</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">⏰ Short Lifespan</div>
+                        <div class="feature-desc">Frequent replacements needed, leading to constant shopping</div>
+                    </div>
+                </div>
+
+                <div class="quality-section high-quality">
+                    <div class="quality-header">
+                        <div class="quality-icon">✅</div>
+                        <div class="quality-title">High-Quality Sportswear</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🧵 Premium Fabrics</div>
+                        <div class="feature-desc">Maintains shape and elasticity through countless washes and workouts</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🌈 Advanced Colorfast Technology</div>
+                        <div class="feature-desc">Conbello Textile applies sophisticated color-fastening and color-fastness finishes to all fabrics, ensuring chromatic stability and pigment retention</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🏆 Durable Prints</div>
+                        <div class="feature-desc">High-quality printing techniques ensure logos and designs last</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">🎯 Precision Seam Engineering</div>
+                        <div class="feature-desc">Meticulous stitch formation and reinforced seam construction utilizing advanced thread tensioning and structural integrity protocols</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-title">♾️ Long-term Value</div>
+                        <div class="feature-desc">Years of reliable use with minimal replacement needs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="craftsmanship-section">
+                <div class="craftsmanship-header">
+                    <h2>🔬 Advanced Craftsmanship Architecture</h2>
+                    <p>Invisible Engineering: The Microscopic Details That Define Garment Longevity</p>
+                </div>
+                
+                <div class="craftsmanship-grid">
+                    <div class="craft-item">
+                        <div class="craft-icon">📏</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Stitch Spacing Precision</div>
+                            <div class="craft-desc">Calibrated stitch density and interval optimization ensures optimal tension distribution and stress resistance across fabric matrices</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-item">
+                        <div class="craft-icon">🧵</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Thread Tension Dynamics</div>
+                            <div class="craft-desc">Precisely calibrated thread tension coefficients prevent puckering while maintaining structural cohesion and seam elasticity</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-item">
+                        <div class="craft-icon">🔗</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Thread Selection Engineering</div>
+                            <div class="craft-desc">High-performance thread compounds with superior tensile strength and elongation properties for enhanced durability</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-item">
+                        <div class="craft-icon">🔥</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Thermal Finishing Protocols</div>
+                            <div class="craft-desc">Advanced heat-setting and steam-pressing techniques for seam consolidation and dimensional stabilization</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-item">
+                        <div class="craft-icon">🛡️</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Interfacing Integration</div>
+                            <div class="craft-desc">Strategic placement of fusible and non-fusible interfacing materials to prevent dimensional instability and structural deformation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-item">
+                        <div class="craft-icon">⚖️</div>
+                        <div class="craft-content">
+                            <div class="craft-title">Dimensional Stability Matrix</div>
+                            <div class="craft-desc">Comprehensive shape-retention engineering prevents gravitational sag and maintains garment silhouette integrity throughout lifecycle</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="craftsmanship-conclusion">
+                    <div class="conclusion-icon">🏆</div>
+                    <div class="conclusion-text">
+                        <strong>Holistic Manufacturing Philosophy:</strong> Superior craftsmanship transcends aesthetic excellence, incorporating meticulous component engineering and process optimization to ensure functional longevity and prevent premature quality deterioration.
+                    </div>
+                </div>
+            </div>
+
+            <div class="cost-analysis">
+                <div class="cost-title">💰 The Real Cost Comparison</div>
+                <div class="cost-comparison">
+                    <div class="cost-item">
+                        <div class="cost-label">Low-Quality Approach</div>
+                        <div class="cost-value low-cost">$20 × 5 replacements = $100</div>
+                        <div style="margin-top: 10px; font-size: 0.9em; color: #666;">Replace every 6 months</div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="cost-label">High-Quality Investment</div>
+                        <div class="cost-value high-cost">$60 × 1 purchase = $60</div>
+                        <div style="margin-top: 10px; font-size: 0.9em; color: #666;">Lasts 2-3 years</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; font-size: 1.2em; font-weight: bold; color: #333;">
+                    💡 High-Quality Manufacturing is Actually 40% Cheaper!
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            All rights reserved by Conbello Textile
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            // Create a new window with the same content for printing
+            const printWindow = window.open('', '_blank');
+            
+            // Get the HTML content
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Write the content to the new window
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            
+            // Wait for the content to load, then trigger print
+            printWindow.onload = function() {
+                printWindow.print();
+                // Close the window after printing
+                printWindow.onafterprint = function() {
+                    printWindow.close();
+                };
+            };
+        }
+    </script>
+</body>
+</html>
